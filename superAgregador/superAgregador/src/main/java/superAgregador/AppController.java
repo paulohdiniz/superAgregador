@@ -18,7 +18,10 @@ public class AppController {
 	
 	@Autowired
 	private BlogRepository blogRepository;
-	
+	@RequestMapping(value="/", method=RequestMethod.GET)
+	public String welcome() {
+		return "redirect:/index";
+	}
 	@RequestMapping(value="/index", method=RequestMethod.GET)
 	public String usersBlogs(Model model){
 		List<Blog> blogs = new ArrayList<>();
