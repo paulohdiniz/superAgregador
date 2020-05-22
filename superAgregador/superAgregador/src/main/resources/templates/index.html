@@ -1,0 +1,26 @@
+<html>
+	<head>
+		<title>Seus Blogs</title>
+	</head>
+	<body>
+		<h2>Sua lista de blogs</h2>
+		<div th:unless="${#lists.isEmpty(blogs)}">
+			<d1 th:each="blog : ${blogs}">
+				<dt class="blogHeadline">
+					<span th:text="${blog.uri}">URI</span>
+					<br>
+				</dt>
+			</d1>
+		</div>
+		<div th:if="${#lists.isEmpty(blogs)}">
+			<p>Nenhum blog foi adicionado</p>
+		</div>
+		<hr/>
+		<form action="http://localhost:8080/add/">
+			<button type="submit">Adicionar blog</button>
+		</form>
+		<form action="http://localhost:8080/delete/">
+			<button type="submit">Remover blog</button>
+		</form>
+	</body>
+</html>
