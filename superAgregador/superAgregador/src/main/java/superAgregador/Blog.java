@@ -7,13 +7,7 @@ public class Blog {
 	
 	@Id
 	private String uri;
-	
 	//private String user;
-	
-	public Blog(String uri/*, String user*/) {
-		this.uri = uri;
-		//this.user = user;
-	}
 	
 	public String getUri() {
 		return uri;

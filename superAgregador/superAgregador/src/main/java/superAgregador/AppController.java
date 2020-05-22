@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,11 +17,12 @@ import java.util.List;
 public class AppController {
 	
 	@Autowired
-	private BlogService blogService;
+	private BlogRepository blogRepository;
 	
 	@RequestMapping(value="/index", method=RequestMethod.GET)
 	public String usersBlogs(Model model){
-		List<Blog> blogs = blogService.getAllBlogs();
+		List<Blog> blogs = new ArrayList<>();
+		blogRepository.findAll().forEach(blogs::add);
 		if(blogs != null) {
 			model.addAttribute("blogs", blogs);
 		}
@@ -33,8 +35,8 @@ public class AppController {
 	}
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public String add(Blog blog) {
-		blogService.addBlog(blog);
-		return "index";
+		blogRepository.save(blog);
+		return "redirect:/index";
 	}
 	
 	@RequestMapping(value="/delete", method=RequestMethod.GET)
@@ -43,7 +45,7 @@ public class AppController {
 	}
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
 	public String delete(Blog blog) {
-		blogService.deleteBlog(blog);
-		return "index";
+		blogRepository.delete(blog);
+		return "redirect:/index";
 	}
 }
